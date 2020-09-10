@@ -26,6 +26,16 @@ declare module "*.svg" {
   export = value;
 }
 
+declare module "*.wav" {
+  const value: string;
+  export = value;
+}
+
+declare module "*.worklet.js" {
+  const value: string;
+  export = value;
+}
+
 declare module "*.css" {
   const value: { [x: string]: string };
   export = value;
