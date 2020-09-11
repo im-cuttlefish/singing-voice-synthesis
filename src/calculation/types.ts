@@ -8,6 +8,8 @@ export type Cepstrum = Complex[];
 
 export type Spectrum = number[];
 
+export type Point = [number, number];
+
 export type STFTAnalyzer = () => Generator<Frequency | null, void, number>;
 
 export type ISTFTAnalyzer = () => Generator<

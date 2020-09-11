@@ -1,46 +1,26 @@
 import { Visualizer, Point } from "./types";
+import { takeMaximum } from "@/calculation/takeMaximum";
+import { applyDefaultRules } from "./applyDefaultRules";
 
-export const pointsVisualizer: Visualizer<Point[]> = ({
-  canvas,
-  xAxis,
-  yAxis,
-  xScale = 1,
-  yScale = 1,
-  autoScale = true,
-}) => {
-  if (!canvas) {
-    canvas = document.createElement("canvas");
-    canvas.width = xAxis;
-    canvas.height = yAxis;
-  }
-
-  if (autoScale) {
-    yScale = 1;
-  }
-
-  const context = canvas.getContext("2d");
+export const pointsVisualizer: Visualizer<Point[]> = (rules) => {
+  const $rules = applyDefaultRules(rules);
+  const context = $rules.canvas.getContext("2d");
 
   if (context === null) {
     throw new Error("Cannot get the canvas's context.");
   }
 
   const normalizer = (points: Point[]): Point[] => {
-    if (!autoScale) {
+    if (!$rules.autoScale) {
       return points;
     }
 
     const result: Point[] = [];
-    let max = 0;
-
-    for (let i = 0; i < points.length; i++) {
-      if (max < points[i][1]) {
-        max = points[i][1];
-      }
-    }
+    const max = takeMaximum(points);
 
     for (let i = 0; i < points.length; i++) {
       const [x, y] = points[i];
-      result.push([x, (yAxis * y) / max]);
+      result.push([x, ($rules.yAxis * y) / max[1]]);
     }
 
     return result;
@@ -48,13 +28,18 @@ export const pointsVisualizer: Visualizer<Point[]> = ({
 
   const drawPoints = (points: Point[]) => {
     const normalized = normalizer(points);
-    context.clearRect(0, 0, xAxis, yAxis);
+    context.clearRect(0, 0, $rules.xAxis, $rules.yAxis);
 
     for (let i = 0; i < normalized.length; i++) {
       const [x, y] = normalized[i];
-      context.fillRect(x * xScale, yAxis - yScale * y, xScale, y * yScale);
+      context.fillRect(
+        x * $rules.xScale,
+        $rules.yAxis - $rules.yScale * y,
+        $rules.xScale,
+        y * $rules.yScale
+      );
     }
   };
 
-  return [canvas, drawPoints];
+  return [$rules.canvas, drawPoints];
 };

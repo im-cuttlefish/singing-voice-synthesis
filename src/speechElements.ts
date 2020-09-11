@@ -19,10 +19,11 @@ const names = ["あ", "い", "う", "sin-100", "sin-315", "sin-400"] as const;
 const urls = [あ, い, う, sin100, sin315, sin400];
 
 type SpeechElementName = typeof names[number];
-type SpeechElementsMap = ReadonlyMap<SpeechElementName, ArrayBuffer>;
+type SpeechElementsMap = ReadonlyMap<SpeechElementName, Blob>;
 
 export const getSpeechElements = async () => {
   const responses = await Promise.all(urls.map((x) => fetch(x)));
-  const arrayBuffers = await Promise.all(responses.map((x) => x.arrayBuffer()));
-  return <SpeechElementsMap>new Map(arrayBuffers.map((x, i) => [names[i], x]));
+  const blobs = await Promise.all(responses.map((x) => x.blob()));
+
+  return new Map(blobs.map((x, i) => [names[i], x])) as SpeechElementsMap;
 };

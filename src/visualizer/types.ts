@@ -2,7 +2,7 @@ export type Visualizer<T> = (
   rules: VisualizerRules
 ) => [HTMLCanvasElement, (x: T) => void];
 
-interface VisualizerRules {
+export interface VisualizerRules {
   canvas?: HTMLCanvasElement;
   xAxis: number;
   yAxis: number;

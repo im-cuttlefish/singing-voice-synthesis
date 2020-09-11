@@ -1,8 +1,8 @@
-import { createSTFTAnalyzer } from "./calculation/createSTFTAnalyzer";
-import { createISTFTAnalyzer } from "./calculation/createISTFTAnalyzer";
-import { createWalker } from "./calculation/createWalker";
-import { hannWindow } from "./calculation/hannWindow";
-import { WindowFunction } from "./calculation/types";
+import { createSTFTAnalyzer } from "../calculation/createSTFTAnalyzer";
+import { createISTFTAnalyzer } from "../calculation/createISTFTAnalyzer";
+import { createWalker } from "../calculation/createWalker";
+import { hannWindow } from "../calculation/hannWindow";
+import { WindowFunction } from "../calculation/types";
 
 const walker = createWalker({
   size: 1024,
