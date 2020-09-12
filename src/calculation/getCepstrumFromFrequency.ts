@@ -1,5 +1,5 @@
 import { Frequency } from "./types";
-import { abs, toComplex } from "./complex";
+import { abs, toComplex } from "./utils/complex";
 import { IDFT } from "./IDFT";
 
 export const getCepstrumFromFrequency = (freqency: Frequency) => {

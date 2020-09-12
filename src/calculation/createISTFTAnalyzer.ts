@@ -1,6 +1,6 @@
 import { IDFT } from "./IDFT";
 import { SignalSegment, WindowFunction, Walker, ISTFTAnalyzer } from "./types";
-import { toComplex, prod } from "./complex";
+import { toComplex, prod } from "./utils/complex";
 
 interface ISTFTRules {
   walker: Walker;

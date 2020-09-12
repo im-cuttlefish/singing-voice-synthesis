@@ -1,4 +1,5 @@
 import { Point } from "./types";
+import { isPoints } from "./utils/isPoints";
 
 export const takeMaximum = (fn: number[] | Point[]): Point => {
   if (isPoints(fn)) {
@@ -22,8 +23,4 @@ export const takeMaximum = (fn: number[] | Point[]): Point => {
   }
 
   return max;
-};
-
-const isPoints = (fn: number[] | Point[]): fn is Point[] => {
-  return Array.isArray(fn[0]);
 };

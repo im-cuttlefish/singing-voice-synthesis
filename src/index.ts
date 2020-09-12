@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { getSpeechElements } from "./speechElements";
 import { getAudioData } from "./audio/getAudioDataFromFile";
-import { getPitchMark } from "./core/getPitchMark";
+import { TD_PSOLA } from "./TD_PSOLA";
+import { PreAnalyzedSignalSegment } from "./types";
+import { getPreAnalyzedData } from "./pre-analyze/getPreAnalyzedData";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const app = document.getElementById("app")!;
 const button = document.getElementById("button")!;
 
 (async () => {
@@ -15,16 +15,28 @@ const button = document.getElementById("button")!;
     return;
   }
 
-  const pitchMark = getPitchMark(audioData);
-  console.log(pitchMark);
+  const { sampleRate } = audioData;
+  const preAnalyzed = getPreAnalyzedData(audioData);
+
+  const segment: PreAnalyzedSignalSegment = {
+    ...preAnalyzed,
+    segment: [...audioData.source()],
+  };
+
+  const nextSource = TD_PSOLA(segment, { F0: 261.626 });
+
+  const context = new AudioContext();
+  const buffer = context.createBuffer(1, nextSource.length, sampleRate);
+  const channelData = buffer.getChannelData(0);
+
+  for (let i = 0; i < nextSource.length; i++) {
+    channelData[i] = nextSource[i];
+  }
 
   button?.addEventListener("click", async () => {
-    /*\
-      const audioBuffer = await context.decodeAudioData(elementsMap.get("あ"));
-      const source = context.createBufferSource();
-      source.buffer = audioBuffer;
-      source.connect(context.destination);
-      source.start(0);
-    \*/
+    const source = context.createBufferSource();
+    source.buffer = buffer;
+    source.connect(context.destination);
+    source.start();
   });
 })();
