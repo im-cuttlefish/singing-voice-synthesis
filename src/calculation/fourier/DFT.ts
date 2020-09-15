@@ -1,5 +1,5 @@
-import { sigma, prod, cis, toComplex } from "./utils/complex";
-import { SignalSegment, Frequency } from "./types";
+import { sigma, prod, cis, toComplex } from "../utils/complex";
+import { SignalSegment, Frequency } from "../types";
 
 export const DFT = (segment: SignalSegment): Frequency => {
   const freqency: Frequency = [];

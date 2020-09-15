@@ -43,5 +43,6 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
-  }
+  },
+  "dependencies": {}
 }

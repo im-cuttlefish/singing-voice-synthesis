@@ -1,5 +1,5 @@
 import { SignalSegment } from "./calculation/types";
-import { PitchMark } from "./pre-analyze/types";
+import { PitchMark } from "./attributes/types";
 
 export interface PreAnalyzedSignalSegment {
   segment: SignalSegment;

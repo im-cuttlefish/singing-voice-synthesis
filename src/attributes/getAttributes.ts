@@ -2,12 +2,12 @@ import { AudioData } from "@/audio/types";
 import { createTrimMeanGetter } from "@/calculation/createTrimMeanGetter";
 import { getPitchMark } from "./getPitchMark";
 import { getPitchTransition } from "./getPitchTransition";
-import { PreAnalyzedData } from "./types";
+import { Attributes } from "./types";
 
-export const getPreAnalyzedData = (audioData: AudioData): PreAnalyzedData => {
+export const getAttributes = (audioData: AudioData): Attributes => {
   if (audioData.type !== "monoral") {
     throw new Error(
-      `The format "${audioData.type} is not supported currently."`
+      `The format "${audioData.type}" is not supported currently."`
     );
   }
 

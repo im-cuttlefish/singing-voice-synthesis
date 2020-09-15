@@ -1,4 +1,4 @@
-import { createSTFTAnalyzer } from "../calculation/createSTFTAnalyzer";
+import { createSTFTAnalyzer } from "../calculation/fourier/createSTFTAnalyzer";
 import { createWalker } from "../calculation/createWalker";
 import { hannWindow } from "../calculation/hannWindow";
 

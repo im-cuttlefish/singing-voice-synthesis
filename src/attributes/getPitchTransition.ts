@@ -1,7 +1,7 @@
 import { MonoralAudioData } from "@/audio/types";
 import { getCepstrumFromFrequency } from "@/calculation/getCepstrumFromFrequency";
 import { takeMaximum } from "@/calculation/takeMaximum";
-import { STFTAnalyzer } from "@/pre-analyze/analyzer";
+import { STFTAnalyzer } from "@/attributes/analyzer";
 import { createBandpassFilter } from "@/calculation/createBandpassFilter";
 import { PitchTransition } from "./types";
 
