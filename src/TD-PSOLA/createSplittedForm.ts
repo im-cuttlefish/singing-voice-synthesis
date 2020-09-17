@@ -1,7 +1,6 @@
 import { hannWindow } from "../calculation/hannWindow";
 import { SignalSegment } from "../calculation/types";
-import { SignalSegmentWithAttributes } from "../types";
-import { SplittedForm } from "./types";
+import { SignalSegmentWithAttributes, SplittedForm } from "./types";
 import { isWithIn } from "./utils/isWithIn";
 
 export const createSplittedForm = (

@@ -48,7 +48,8 @@ export const stretchDuration = (
     };
   }
 
-  const R = Math.ceil(timeRatio * 10) % 10;
+  console.log("this ");
+  const R = Math.ceil(timeRatio * 10);
   let prev = 0;
 
   loop: for (let group = 0; ; group += 10) {

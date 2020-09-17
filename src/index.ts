@@ -2,10 +2,9 @@
 import { getSpeechElements } from "./speechElements";
 import { getAudioData } from "./audio/getAudioDataFromFile";
 import { TD_PSOLA } from "./TD-PSOLA/TD_PSOLA";
-import { SignalSegmentWithAttributes } from "./types";
+import { SignalSegmentWithAttributes } from "./TD-PSOLA/types";
 import attributes from "./attributes.json";
 import { createWaveFile } from "./audio/createWaveFile";
-import { getAttributes } from "./attributes/getAttributes";
 
 const app = document.getElementById("app")!;
 const button = document.getElementById("button")!;
@@ -18,34 +17,21 @@ app.appendChild(link);
 
 (async () => {
   const elementsMap = await getSpeechElements();
-  const audioData = await getAudioData(elementsMap.get("うぇ")!);
+  const audioData = await getAudioData(elementsMap.get("お")!);
 
   if (audioData.type !== "monoral") {
     return;
   }
 
-  /*\
-  const aa: any = {};
-
-  for (const [key, value] of elementsMap) {
-    const audioData = await getAudioData(value);
-    const attributes = getAttributes(audioData);
-    aa[key] = attributes;
-    console.log(`Done: ${key}`);
-  }
-
-  console.log(JSON.stringify(aa));
-  \*/
-
   const { sampleRate } = audioData;
 
   const segment: SignalSegmentWithAttributes = {
-    ...attributes.うぇ,
+    ...attributes.お,
     segment: [...audioData.source()],
   };
 
   const nextSource = TD_PSOLA(segment, {
-    F0: 300,
+    F0: 400,
     duration: 10,
   });
 

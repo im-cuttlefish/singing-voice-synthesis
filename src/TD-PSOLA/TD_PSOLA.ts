@@ -1,5 +1,5 @@
 import { SignalSegment } from "../calculation/types";
-import { SignalSegmentWithAttributes } from "../types";
+import { SignalSegmentWithAttributes } from "./types";
 import { createSplittedForm } from "./createSplittedForm";
 import { OLA } from "./OLA";
 import { shiftPitch } from "./shiftPitch";
