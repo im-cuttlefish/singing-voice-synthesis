@@ -10,7 +10,7 @@ export const getAudioDataFromWaveFile = (view: DataView): AudioData => {
 
   const offset = 44;
   const isMonoral = inspector.isMonoral();
-  const dataSize = inspector.getDataSize();
+  const datasize = inspector.getDataSize();
   const sampleRate = inspector.getSampleRate();
 
   const normalize = (x: number) => {
@@ -20,7 +20,7 @@ export const getAudioDataFromWaveFile = (view: DataView): AudioData => {
 
   if (isMonoral) {
     const source: SignalSource = function* () {
-      for (let byte = 0; byte + 2 < dataSize; byte += 2) {
+      for (let byte = 0; byte + 2 < datasize; byte += 2) {
         yield normalize(view.getInt16(offset + byte, true));
       }
     };
@@ -29,13 +29,13 @@ export const getAudioDataFromWaveFile = (view: DataView): AudioData => {
   }
 
   const left: SignalSource = function* () {
-    for (let byte = 0; byte + 4 < dataSize; byte += 4) {
+    for (let byte = 0; byte + 4 < datasize; byte += 4) {
       yield normalize(view.getInt16(offset + byte, true));
     }
   };
 
   const right: SignalSource = function* () {
-    for (let byte = 0; byte + 4 < dataSize; byte += 4) {
+    for (let byte = 0; byte + 4 < datasize; byte += 4) {
       yield normalize(view.getInt16(offset + byte + 2, true));
     }
   };

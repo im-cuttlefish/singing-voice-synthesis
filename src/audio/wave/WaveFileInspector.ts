@@ -19,7 +19,7 @@ export class WaveFileInspector {
 
   getDataSize = () => {
     const offset = 44;
-    const fileSize = this.view.getUint32(4, true) + 8;
-    return fileSize - offset;
+    const filesize = this.view.getUint32(4, true) + 8;
+    return filesize - offset;
   };
 }

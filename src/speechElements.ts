@@ -286,16 +286,6 @@ const mapping = {
   ヴぉ,
 };
 
-interface ReadonlyMap<K, V> {
-  readonly size: number;
-  forEach(
-    fn: (value: V, key: K, map: ReadonlyMap<K, V>) => void,
-    self?: unknown
-  ): void;
-  get(key: K): V;
-  has(key: K): boolean;
-}
-
 type SpeechElementName = keyof typeof mapping;
 type SpeechElementsMap = Map<SpeechElementName, Blob>;
 
