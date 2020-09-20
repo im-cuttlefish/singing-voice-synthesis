@@ -1,4 +1,4 @@
-import { SignalSegment } from "@/calculation/types";
+import { SignalSegment } from "../calculation/types";
 
 interface Props {
   segment: SignalSegment;
@@ -47,6 +47,6 @@ const bin = (x: string) => {
 };
 
 const unnormalize = (x: number) => {
-  const y = Math.floor(x * 0.6 * 32767);
+  const y = Math.floor(x * 32767);
   return y > 32767 ? 32767 : y < -32768 ? -32768 : y;
 };

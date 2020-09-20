@@ -1,7 +1,7 @@
-import { getCepstrumFromFrequency } from "@/calculation/getCepstrumFromFrequency";
-import { createBandpassFilter } from "@/calculation/createBandpassFilter";
-import { takeMaximum } from "@/calculation/takeMaximum";
-import { STFTAnalyzer } from "@/attributes/analyzer";
+import { getCepstrumFromFrequency } from "../calculation/getCepstrumFromFrequency";
+import { createBandpassFilter } from "../calculation/createBandpassFilter";
+import { takeMaximum } from "../calculation/takeMaximum";
+import { STFTAnalyzer } from "./analyzer";
 import { PitchTransitionAnalyzer } from "./types";
 
 export const getPitchTransition: PitchTransitionAnalyzer = function* (

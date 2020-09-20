@@ -1,6 +1,6 @@
 import { SignalSegment } from "../calculation/types";
 import { SignalSegmentWithAttributes } from "./types";
-import { createSplittedForm } from "./createSplittedForm";
+import { splitSignalSegment } from "./splitSignalSegment";
 import { OLA } from "./OLA";
 import { shiftPitch } from "./shiftPitch";
 import { stretchDuration } from "./stretchDuration";
@@ -17,7 +17,7 @@ export const TD_PSOLA = (
   const prevDuration = segment.length / sampleRate;
   const F0Ratio = F0 / from.F0;
 
-  const base = createSplittedForm(from);
+  const base = splitSignalSegment(from);
   const stretched = stretchDuration(base, (F0Ratio * duration) / prevDuration);
   const pitchShifted = shiftPitch(stretched, 1 / F0Ratio);
   const signal = OLA(pitchShifted);

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { getSpeechElements } from "./speechElements";
-import { getAudioData } from "./audio/getAudioDataFromFile";
-import { TD_PSOLA } from "./TD-PSOLA/TD_PSOLA";
-import { SignalSegmentWithAttributes } from "./TD-PSOLA/types";
+import { getAudioData } from "./synthesis-engine/audio/getAudioDataFromFile";
+import { SignalSegmentWithAttributes } from "./synthesis-engine/TD-PSOLA-v1/types";
 import attributes from "./attributes.json";
-import { createWaveFile } from "./audio/createWaveFile";
+import { createWaveFile } from "./synthesis-engine/audio/createWaveFile";
+import { transform } from "./synthesis-engine/transformer/transform";
 
 const app = document.getElementById("app")!;
 const button = document.getElementById("button")!;
@@ -17,7 +17,7 @@ app.appendChild(link);
 
 (async () => {
   const elementsMap = await getSpeechElements();
-  const audioData = await getAudioData(elementsMap.get("お")!);
+  const audioData = await getAudioData(elementsMap.get("ぎ")!);
 
   if (audioData.type !== "monoral") {
     return;
@@ -25,29 +25,26 @@ app.appendChild(link);
 
   const { sampleRate } = audioData;
 
-  const segment: SignalSegmentWithAttributes = {
-    ...attributes.お,
-    segment: [...audioData.source()],
-  };
-
-  const nextSource = TD_PSOLA(segment, {
-    F0: 400,
+  const merged = transform({
+    F0: 250,
     duration: 10,
+    attributes: attributes.ぎ,
+    audioData: audioData,
   });
 
   link.href = URL.createObjectURL(
-    createWaveFile({ segment: nextSource, sampleRate })
+    createWaveFile({ segment: merged, sampleRate })
   );
 
   let source: AudioBufferSourceNode;
 
   button?.addEventListener("click", async () => {
     const context = new AudioContext();
-    const buffer = context.createBuffer(1, nextSource.length, sampleRate);
+    const buffer = context.createBuffer(1, merged.length, sampleRate);
     const channelData = buffer.getChannelData(0);
 
-    for (let i = 0; i < nextSource.length; i++) {
-      channelData[i] = nextSource[i];
+    for (let i = 0; i < merged.length; i++) {
+      channelData[i] = merged[i] || 0;
     }
 
     source = context.createBufferSource();

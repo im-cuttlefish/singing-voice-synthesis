@@ -1,16 +1,10 @@
-import { AudioData } from "@/audio/types";
-import { createTrimMeanGetter } from "@/calculation/createTrimMeanGetter";
+import { MonoralAudioData } from "../audio/types";
+import { createTrimMeanGetter } from "../calculation/createTrimMeanGetter";
 import { getPitchMark } from "./getPitchMark";
 import { getPitchTransition } from "./getPitchTransition";
 import { Attributes } from "./types";
 
-export const getAttributes = (audioData: AudioData): Attributes => {
-  if (audioData.type !== "monoral") {
-    throw new Error(
-      `The format "${audioData.type}" is not supported currently."`
-    );
-  }
-
+export const getAttributes = (audioData: MonoralAudioData): Attributes => {
   const { sampleRate } = audioData;
   const pitchTransition = getPitchTransition(audioData);
   const F0 = getTrimMean(pitchTransition);

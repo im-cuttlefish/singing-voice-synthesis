@@ -8,8 +8,8 @@ export const stretchDuration = (
   { pitchMark, T0, splitted }: SplittedForm,
   timeRatio: number
 ): SplittedForm => {
-  const nextPitchmark: PitchMark = [];
-  const nextSplitted: SignalSegment[] = [];
+  const editedPitchMark: PitchMark = [];
+  const editedSplitted: SignalSegment[] = [];
   const diff: number[] = [];
 
   for (let i = 0; i < pitchMark.length - 1; i++) {
@@ -29,13 +29,13 @@ export const stretchDuration = (
 
         const D = isWithIn(group + i - 1, diff) ? diff[group + i - 1] : 0;
 
-        nextPitchmark.push(prev + D);
-        nextSplitted.push(splitted[group + i]);
+        editedPitchMark.push(prev + D);
+        editedSplitted.push(splitted[group + i]);
         prev += D;
 
         repeat(i < R ? Q + 1 : Q, () => {
-          nextPitchmark.push(prev + T0);
-          nextSplitted.push(splitted[group + i]);
+          editedPitchMark.push(prev + T0);
+          editedSplitted.push(splitted[group + i]);
           prev += T0;
         });
       }
@@ -43,12 +43,11 @@ export const stretchDuration = (
 
     return {
       T0,
-      pitchMark: nextPitchmark,
-      splitted: nextSplitted,
+      pitchMark: editedPitchMark,
+      splitted: editedSplitted,
     };
   }
 
-  console.log("this ");
   const R = Math.ceil(timeRatio * 10);
   let prev = 0;
 
@@ -58,15 +57,15 @@ export const stretchDuration = (
         break loop;
       }
 
-      nextPitchmark.push(prev + T0);
-      nextSplitted.push(splitted[group + i]);
+      editedPitchMark.push(prev + T0);
+      editedSplitted.push(splitted[group + i]);
       prev += T0;
     }
   }
 
   return {
     T0,
-    pitchMark: nextPitchmark,
-    splitted: nextSplitted,
+    pitchMark: editedPitchMark,
+    splitted: editedSplitted,
   };
 };

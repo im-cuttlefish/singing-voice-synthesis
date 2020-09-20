@@ -3,7 +3,7 @@ import { SignalSegment } from "../calculation/types";
 import { SignalSegmentWithAttributes, SplittedForm } from "./types";
 import { isWithIn } from "./utils/isWithIn";
 
-export const createSplittedForm = (
+export const splitSignalSegment = (
   from: SignalSegmentWithAttributes
 ): SplittedForm => {
   const { segment, pitchMark, sampleRate, F0 } = from;

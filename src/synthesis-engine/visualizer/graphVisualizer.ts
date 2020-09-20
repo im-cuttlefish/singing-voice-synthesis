@@ -1,6 +1,6 @@
-import { Spectrum } from "@/calculation/types";
+import { Spectrum } from "../calculation/types";
 import { Visualizer, Graph } from "./types";
-import { takeMaximum } from "@/calculation/takeMaximum";
+import { takeMaximum } from "../calculation/takeMaximum";
 import { applyDefaultRules } from "./applyDefaultRules";
 
 export const graphVisualizer: Visualizer<Graph> = (rules) => {

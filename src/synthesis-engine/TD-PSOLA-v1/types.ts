@@ -1,5 +1,5 @@
-import { PitchMark } from "@/attributes/types";
-import { SignalSegment } from "@/calculation/types";
+import { PitchMark } from "../attributes/types";
+import { SignalSegment } from "../calculation/types";
 
 export interface SignalSegmentWithAttributes {
   segment: SignalSegment;

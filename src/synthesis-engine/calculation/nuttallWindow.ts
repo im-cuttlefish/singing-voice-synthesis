@@ -1,7 +1,8 @@
 import { WindowFunction } from "./types";
 
 export const nuttallWindow: WindowFunction = (width) => {
-  const cos = (x: number) => Math.cos((2 * Math.PI * x) / width);
+  const cos = (x: number) => Math.cos(2 * Math.PI * (x / width));
+
   return (x) => {
     return a0 - a1 * cos(x) + a2 * cos(2 * x) - a3 * cos(3 * x);
   };

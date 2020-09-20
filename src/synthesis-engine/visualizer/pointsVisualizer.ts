@@ -1,5 +1,5 @@
 import { Visualizer, Point } from "./types";
-import { takeMaximum } from "@/calculation/takeMaximum";
+import { takeMaximum } from "../calculation/takeMaximum";
 import { applyDefaultRules } from "./applyDefaultRules";
 
 export const pointsVisualizer: Visualizer<Point[]> = (rules) => {
