@@ -4,8 +4,7 @@ import { SignalSegment } from "../calculation/types";
 import { createCrossfader } from "../fade/createCrossfader";
 import { createFadeOuter } from "../fade/createFadeOuter";
 import { linearFader } from "../fade/linearFader";
-import { TD_PSOLA } from "../TD-PSOLA-v1/TD_PSOLA";
-import { SignalSegmentWithAttributes } from "../TD-PSOLA-v1/types";
+import { TD_PSOLA } from "../TD-PSOLA/TD_PSOLA";
 import { takeConsonantSegment } from "./takeConsonantSegment";
 import { takeVowelSegment } from "./takeVowelSegment";
 
@@ -74,12 +73,12 @@ export const transform = ({
     merged[i + consonantSegment.length] = vowelSegment[i + overlapCount];
   }
 
+  // 微小時間のフェードアウト
   merged.splice(durationCount);
   const fadeOut = fadeOuter();
   const offset2 = merged.length - fadeOutCount;
   fadeOut.next(merged[offset2]);
 
-  // 微小時間のフェードアウト
   for (let i = 0; i < fadeOutCount; i++) {
     const signal = merged[offset2 + i];
     const { value } = fadeOut.next(signal);

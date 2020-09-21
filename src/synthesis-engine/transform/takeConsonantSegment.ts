@@ -1,6 +1,6 @@
 import { Attributes } from "../attributes/types";
 import { MonoralAudioData } from "../audio/types";
-import { SignalSegmentWithAttributes } from "../TD-PSOLA-v1/types";
+import { SignalSegmentWithAttributes } from "../TD-PSOLA/types";
 
 export const takeConsonantSegment = (
   { F0, pitchMark, sampleRate }: Attributes,

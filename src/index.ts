@@ -4,8 +4,6 @@ import { getAudioData } from "./synthesis-engine/audio/getAudioDataFromFile";
 import attributes from "./attributes.json";
 import { createWaveFile } from "./synthesis-engine/audio/createWaveFile";
 import { transform } from "./synthesis-engine/transform/transform";
-import { PitchMark } from "./synthesis-engine/attributes/types";
-import { adjustPitchMark } from "./synthesis-engine/attributes/adjustPitchMark";
 
 const app = document.getElementById("app")!;
 const button = document.getElementById("button")!;
@@ -18,22 +16,18 @@ app.appendChild(link);
 
 (async () => {
   const elementsMap = await getSpeechElements();
-  const audioData = await getAudioData(elementsMap.get("ざ")!);
+  const audioData = await getAudioData(elementsMap.get("ば")!);
 
   if (audioData.type !== "monoral") {
     return;
   }
 
-  const { pitchMark, sampleRate } = attributes.ざ;
-  const correctPitchMark: PitchMark = adjustPitchMark(pitchMark);
+  const { sampleRate } = attributes.ば;
 
   const merged = transform({
     F0: 400,
     duration: 10,
-    attributes: {
-      ...attributes.ざ,
-      pitchMark: correctPitchMark,
-    },
+    attributes: attributes.ば,
     audioData: audioData,
   });
 
