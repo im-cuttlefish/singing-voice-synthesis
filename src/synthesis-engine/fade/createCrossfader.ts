@@ -7,14 +7,14 @@ interface CrossfadeRules {
 
 export const createCrossfader = ({
   fader,
-  duration,
+  duration: overlap,
 }: CrossfadeRules): Crossfader => {
   return function* () {
-    const fn = fader(duration);
+    const fn = fader(overlap);
     let [fadeOut, fadeIn] = yield null;
 
-    for (let i = 0; i < duration; i++) {
-      const merged = fn(i) * fadeIn + fn(duration - i) * fadeOut;
+    for (let i = 0; i < overlap; i++) {
+      const merged = fn(i) * fadeIn + fn(overlap - i) * fadeOut;
       [fadeOut, fadeIn] = yield merged;
     }
   };

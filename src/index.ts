@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { getSpeechElements } from "./speechElements";
 import { getAudioData } from "./synthesis-engine/audio/getAudioDataFromFile";
-import { SignalSegmentWithAttributes } from "./synthesis-engine/TD-PSOLA-v1/types";
 import attributes from "./attributes.json";
 import { createWaveFile } from "./synthesis-engine/audio/createWaveFile";
-import { transform } from "./synthesis-engine/transformer/transform";
+import { transform } from "./synthesis-engine/transform/transform";
+import { PitchMark } from "./synthesis-engine/attributes/types";
+import { adjustPitchMark } from "./synthesis-engine/attributes/adjustPitchMark";
 
 const app = document.getElementById("app")!;
 const button = document.getElementById("button")!;
@@ -17,18 +18,24 @@ app.appendChild(link);
 
 (async () => {
   const elementsMap = await getSpeechElements();
-  const audioData = await getAudioData(elementsMap.get("ぎ")!);
+  const audioData = await getAudioData(elementsMap.get("か")!);
 
   if (audioData.type !== "monoral") {
     return;
   }
 
-  const { sampleRate } = audioData;
+  // const { sampleRate } = audioData;
+
+  const { pitchMark, sampleRate } = attributes.か;
+  const correctPitchMark: PitchMark = adjustPitchMark(pitchMark);
 
   const merged = transform({
-    F0: 250,
-    duration: 10,
-    attributes: attributes.ぎ,
+    F0: 400,
+    duration: 5,
+    attributes: {
+      ...attributes.か,
+      pitchMark: correctPitchMark,
+    },
     audioData: audioData,
   });
 

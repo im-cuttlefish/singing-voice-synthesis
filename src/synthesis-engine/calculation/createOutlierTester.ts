@@ -1,5 +1,6 @@
 import { getMean } from "./utils/getMean";
 import { Point } from "./types";
+import { getVariance } from "./utils/getVariance";
 
 export const createOutlierTester = (level: number) => {
   return (fn: number[]) => {
@@ -8,7 +9,7 @@ export const createOutlierTester = (level: number) => {
     const SD = Math.sqrt(getVariance(fn));
 
     const isOutlier = (y: number) => {
-      return (y - mean) / SD > level;
+      return Math.abs(y - mean) / SD > level;
     };
 
     for (let x = 0; x < fn.length; x++) {
@@ -19,8 +20,4 @@ export const createOutlierTester = (level: number) => {
 
     return outlier;
   };
-};
-
-const getVariance = (fn: number[]) => {
-  return fn.reduce((S, y) => S + y ** 2, 0) / fn.length;
 };

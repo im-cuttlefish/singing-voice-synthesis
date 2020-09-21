@@ -2,7 +2,7 @@ import { Attributes, PitchMark } from "../attributes/types";
 import { MonoralAudioData } from "../audio/types";
 import { SignalSegmentWithAttributes } from "../TD-PSOLA-v1/types";
 
-export const createVowel = (
+export const takeVowelSegment = (
   { F0, pitchMark, sampleRate }: Attributes,
   audioData: MonoralAudioData
 ): SignalSegmentWithAttributes => {

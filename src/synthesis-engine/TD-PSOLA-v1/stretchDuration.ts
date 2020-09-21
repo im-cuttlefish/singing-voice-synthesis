@@ -3,6 +3,7 @@ import { SignalSegment } from "../calculation/types";
 import { repeat } from "./utils/repeat";
 import { SplittedForm } from "./types";
 import { isWithIn } from "./utils/isWithIn";
+import { getDelta } from "./utils/getDelta";
 
 export const stretchDuration = (
   { pitchMark, T0, splitted }: SplittedForm,
@@ -10,11 +11,7 @@ export const stretchDuration = (
 ): SplittedForm => {
   const editedPitchMark: PitchMark = [];
   const editedSplitted: SignalSegment[] = [];
-  const diff: number[] = [];
-
-  for (let i = 0; i < pitchMark.length - 1; i++) {
-    diff.push(pitchMark[i + 1] - pitchMark[i]);
-  }
+  const delta: number[] = getDelta(pitchMark);
 
   if (timeRatio > 1) {
     const R = Math.ceil(timeRatio * 10) % 10;
@@ -27,7 +24,7 @@ export const stretchDuration = (
           break loop;
         }
 
-        const D = isWithIn(group + i - 1, diff) ? diff[group + i - 1] : 0;
+        const D = isWithIn(group + i - 1, delta) ? delta[group + i - 1] : 0;
 
         editedPitchMark.push(prev + D);
         editedSplitted.push(splitted[group + i]);
