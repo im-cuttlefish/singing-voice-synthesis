@@ -6,6 +6,7 @@ import { createFadeOuter } from "../fade/createFadeOuter";
 import { linearFader } from "../fade/linearFader";
 import { TD_PSOLA } from "../TD-PSOLA-v1/TD_PSOLA";
 import { SignalSegmentWithAttributes } from "../TD-PSOLA-v1/types";
+import { takeConsonantSegment } from "./takeConsonantSegment";
 import { takeVowelSegment } from "./takeVowelSegment";
 
 interface TransformRules {
@@ -39,11 +40,7 @@ export const transform = ({
     duration: fadeOutCount,
   });
 
-  const consonant: SignalSegmentWithAttributes = {
-    ...attributes,
-    segment: [...audioData.source()],
-  };
-
+  const consonant = takeConsonantSegment(attributes, audioData);
   const vowel = takeVowelSegment(attributes, audioData);
 
   const consonantSegment = TD_PSOLA(consonant, { F0 });

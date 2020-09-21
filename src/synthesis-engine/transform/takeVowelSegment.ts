@@ -7,16 +7,11 @@ export const takeVowelSegment = (
   audioData: MonoralAudioData
 ): SignalSegmentWithAttributes => {
   const segment = [...audioData.source()];
-  const quarterIndex = Math.floor(pitchMark.length / 4);
+  const quarterIndex = Math.floor(pitchMark.length / 3);
+  const quarterMark = pitchMark[quarterIndex];
 
-  const cutPitchMark = movePitchMark(
-    pitchMark[quarterIndex],
-    pitchMark.slice(quarterIndex)
-  );
-
-  const cutSegment = segment.slice(
-    Math.floor(pitchMark[quarterIndex] - 1 / F0)
-  );
+  const cutPitchMark = moveParallel(quarterMark, pitchMark.slice(quarterIndex));
+  const cutSegment = segment.slice(Math.floor(quarterMark - 1 / F0));
 
   return {
     F0,
@@ -26,7 +21,7 @@ export const takeVowelSegment = (
   };
 };
 
-const movePitchMark = (x: number, pitchMark: PitchMark): PitchMark => {
+const moveParallel = (x: number, pitchMark: PitchMark): PitchMark => {
   const result: PitchMark = [];
 
   for (let i = 0; i < pitchMark.length; i++) {

@@ -18,22 +18,20 @@ app.appendChild(link);
 
 (async () => {
   const elementsMap = await getSpeechElements();
-  const audioData = await getAudioData(elementsMap.get("か")!);
+  const audioData = await getAudioData(elementsMap.get("ざ")!);
 
   if (audioData.type !== "monoral") {
     return;
   }
 
-  // const { sampleRate } = audioData;
-
-  const { pitchMark, sampleRate } = attributes.か;
+  const { pitchMark, sampleRate } = attributes.ざ;
   const correctPitchMark: PitchMark = adjustPitchMark(pitchMark);
 
   const merged = transform({
     F0: 400,
-    duration: 5,
+    duration: 10,
     attributes: {
-      ...attributes.か,
+      ...attributes.ざ,
       pitchMark: correctPitchMark,
     },
     audioData: audioData,
