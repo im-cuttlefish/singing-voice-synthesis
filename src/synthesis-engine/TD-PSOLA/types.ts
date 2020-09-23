@@ -1,20 +1,19 @@
 import { PitchMark } from "../attributes/types";
-import { SignalSegment } from "../calculation/types";
+import { SignalSegment } from "@/calculation/signal-processing/types";
 
-export interface SignalSegmentWithAttributes {
+export interface CorpusItem {
   segment: SignalSegment;
   sampleRate: number;
   F0: number;
   pitchMark: PitchMark;
 }
 
-export interface Transform {
-  F0?: number;
-  duration?: number;
+export interface Metadata {
+  sampleRate: number;
+  F0: number;
+  duration: number;
 }
 
-export interface SplittedForm {
-  T0: number;
-  pitchMark: PitchMark;
-  splitted: SignalSegment[];
-}
+export type Piece = number[];
+
+export type PieceTable = [pieceIndex: number, locatedDelta: number][];

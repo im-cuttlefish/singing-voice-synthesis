@@ -1,6 +1,6 @@
 import { PitchMark } from "./types";
-import { Point } from "../calculation/types";
-import { OLS } from "../calculation/OLS";
+import { Point } from "@/calculation/utils/types";
+import { OLS } from "@/calculation/statistics/OLS";
 
 export const adjustPitchMark = (pitchMark: PitchMark) => {
   const correctPitchMark: PitchMark = [];

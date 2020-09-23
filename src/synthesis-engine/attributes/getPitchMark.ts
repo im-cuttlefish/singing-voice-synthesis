@@ -1,6 +1,6 @@
-import { MonoralAudioData } from "../audio/types";
-import { createWalker } from "../calculation/createWalker";
-import { takeMaximum } from "../calculation/takeMaximum";
+import { MonoralAudioData } from "../../audio/types";
+import { createWalker } from "../../calculation/window/createWalker";
+import { takeMaximum } from "../../calculation/utils/takeMaximum";
 import { PitchMark } from "./types";
 
 export const getPitchMark = (audioData: MonoralAudioData, F0: number) => {

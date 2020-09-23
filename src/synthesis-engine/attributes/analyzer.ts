@@ -1,6 +1,6 @@
-import { createSTFTAnalyzer } from "../calculation/fourier/createSTFTAnalyzer";
-import { createWalker } from "../calculation/createWalker";
-import { hannWindow } from "../calculation/hannWindow";
+import { createSTFTAnalyzer } from "@/calculation/signal-processing/createSTFTAnalyzer";
+import { createWalker } from "@/calculation/window/createWalker";
+import { hannWindow } from "@/calculation/window/hannWindow";
 
 const walker = createWalker({
   size: 1024,

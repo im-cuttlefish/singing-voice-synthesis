@@ -1,8 +1,8 @@
-import { MonoralAudioData } from "../audio/types";
-import { getCepstrumFromFrequency } from "../calculation/getCepstrumFromFrequency";
-import { takeMaximum } from "../calculation/takeMaximum";
+import { MonoralAudioData } from "../../audio/types";
+import { getCepstrumFromFrequency } from "../../calculation/signal-processing/getCepstrumFromFrequency";
+import { takeMaximum } from "../../calculation/utils/takeMaximum";
 import { STFTAnalyzer } from "./analyzer";
-import { createBandpassFilter } from "../calculation/createBandpassFilter";
+import { createBandpassFilter } from "../../calculation/signal-processing/createBandpassFilter";
 import { PitchTransition } from "./types";
 
 export const getPitchTransition = (audioData: MonoralAudioData) => {

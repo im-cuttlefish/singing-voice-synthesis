@@ -6,7 +6,3 @@ export interface Attributes {
   F0: number;
   pitchMark: PitchMark;
 }
-
-export type PitchTransitionAnalyzer = (
-  sampleRate: number
-) => Generator<[number, number] | null, void, number>;

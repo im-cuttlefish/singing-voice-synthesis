@@ -1,5 +1,5 @@
-import { MonoralAudioData } from "../audio/types";
-import { createTrimMeanGetter } from "../calculation/createTrimMeanGetter";
+import { MonoralAudioData } from "../../audio/types";
+import { createTrimMeanGetter } from "../../calculation/statistics/createTrimMeanGetter";
 import { adjustPitchMark } from "./adjustPitchMark";
 import { getPitchMark } from "./getPitchMark";
 import { getPitchTransition } from "./getPitchTransition";

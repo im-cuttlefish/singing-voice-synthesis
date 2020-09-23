@@ -1,18 +1,26 @@
-import { SignalSegment } from "../calculation/types";
-import { SplittedForm } from "./types";
+import { SignalSegment } from "@/calculation/signal-processing/types";
+import { Piece, PieceTable } from "./types";
 
-export const OLA = ({ splitted, pitchMark }: SplittedForm): SignalSegment => {
+interface OLARules {
+  pieces: Piece[];
+  pieceTable: PieceTable;
+}
+
+export const OLA = ({ pieces, pieceTable }: OLARules): SignalSegment => {
   const segment: SignalSegment = [];
-  const firstMark = pitchMark[0];
+  let prevIndex = 0;
 
-  for (let i = 0; i < splitted.length; i++) {
-    const piece = splitted[i];
-    const mark = pitchMark[i] - firstMark;
+  for (let i = 0; i < pieceTable.length; i++) {
+    const [pieceIndex, locatedDelta] = pieceTable[i];
+    const locatedIndex = prevIndex + locatedDelta;
+    const piece = pieces[pieceIndex];
 
-    for (let t = 0; t < piece.length; t++) {
-      segment[t + mark] ??= 0;
-      segment[t + mark] += piece[t];
+    for (let k = 0; k < piece.length; k++) {
+      segment[locatedIndex + k] ??= 0;
+      segment[locatedIndex + k] += piece[k];
     }
+
+    prevIndex += locatedDelta;
   }
 
   for (let i = 0; i < segment.length; i++) {
