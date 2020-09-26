@@ -4,7 +4,7 @@ import { repeat } from "./utils/repeat";
 export const createTimeStretcher = (duration: number) => {
   return (pieceTable: PieceTable, meta: Metadata): PieceTable => {
     const result: PieceTable = [];
-    const T0 = Math.floor(meta.sampleRate / meta.F0);
+    const T0 = meta.sampleRate / meta.F0;
     const durationRatio = duration / meta.duration;
 
     if (durationRatio <= 1) {

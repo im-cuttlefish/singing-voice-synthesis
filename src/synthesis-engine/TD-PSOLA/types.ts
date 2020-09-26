@@ -17,3 +17,5 @@ export interface Metadata {
 export type Piece = number[];
 
 export type PieceTable = [pieceIndex: number, locatedDelta: number][];
+
+export type F0Transition = (t: number) => number;

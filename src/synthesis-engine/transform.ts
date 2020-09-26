@@ -3,17 +3,17 @@ import { MonoralAudioData } from "../audio/types";
 import { createFadeOuter } from "../effector/fader/createFadeOuter";
 import { sinusFader } from "../effector/fader/sinusFader";
 import { TD_PSOLA } from "./TD-PSOLA/TD-PSOLA";
-import { CorpusItem } from "./TD-PSOLA/types";
+import { CorpusItem, F0Transition } from "./TD-PSOLA/types";
 
 interface TransformRules {
-  F0: number;
+  F0Transition: F0Transition;
   duration: number;
   attributes: Attributes;
   audioData: MonoralAudioData;
 }
 
 export const transform = ({
-  F0,
+  F0Transition,
   duration,
   attributes,
   audioData,
@@ -29,7 +29,7 @@ export const transform = ({
 
   const source = [...audioData.source()];
   const corpus: CorpusItem = { ...attributes, segment: source };
-  const segment = TD_PSOLA(corpus, { F0, duration });
+  const segment = TD_PSOLA(corpus, { F0Transition, duration });
 
   segment.splice(durationCount);
   const offset = segment.length - fadeOutCount;
