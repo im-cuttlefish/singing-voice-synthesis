@@ -23,11 +23,8 @@ export const createCubicSpline: Interpolator = (points) => {
 
   return (x: number) => {
     const binarySearch = createBinarySearch((y: Point) => y[0] >= x);
-    const i = binarySearch(points) - 1;
-
-    if (i < 0 || i >= points.length - 1) {
-      return 0;
-    }
+    let i = binarySearch(points) - 1;
+    i = i < 0 ? 0 : i >= A.length - 1 ? A.length - 1 : i;
 
     const [x0, y0] = points[i];
     const p = x - x0;

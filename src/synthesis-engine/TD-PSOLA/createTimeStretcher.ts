@@ -20,8 +20,8 @@ export const createTimeStretcher = (duration: number) => {
           break loop;
         }
 
-        const [pieceIndex, locatedDelta] = pieceTable[group + i];
-        result.push([pieceIndex, locatedDelta]);
+        const [pieceIndex, locationDelta] = pieceTable[group + i];
+        result.push([pieceIndex, locationDelta]);
 
         repeat(i < R ? Q + 1 : Q, () => {
           result.push([pieceIndex, T0]);

@@ -2,7 +2,6 @@ import { MonoralAudioData } from "../../audio/types";
 import { getCepstrumFromFrequency } from "../../calculation/signal-processing/getCepstrumFromFrequency";
 import { takeMaximum } from "../../calculation/utils/takeMaximum";
 import { STFTAnalyzer } from "./analyzer";
-import { createBandpassFilter } from "../../calculation/signal-processing/createBandpassFilter";
 import { PitchTransition } from "./types";
 
 export const getPitchTransition = (audioData: MonoralAudioData) => {
@@ -10,7 +9,7 @@ export const getPitchTransition = (audioData: MonoralAudioData) => {
   const source = audioData.source();
 
   const STFT = STFTAnalyzer();
-  const bandpass = createBandpassFilter(Math.floor(sampleRate / 880), 512);
+  const extractor = createExtractor(Math.floor(sampleRate / 880), 512);
 
   const pitchMark: PitchTransition = [];
   let count = 0;
@@ -25,11 +24,18 @@ export const getPitchTransition = (audioData: MonoralAudioData) => {
     }
 
     const cepstrum = getCepstrumFromFrequency(frequency);
-    const cutCepstrum = bandpass(cepstrum);
+    const cutCepstrum = extractor(cepstrum);
     const max = takeMaximum(cutCepstrum);
 
     pitchMark.push([passedTime, sampleRate / max[0]]);
   }
 
   return pitchMark;
+};
+
+const createExtractor = (from: number, morf: number) => {
+  const leftPad = Array(from).fill(0);
+  const rightPad = Array(morf).fill(0);
+
+  return (f: number[]) => [...leftPad, ...f.slice(from, -morf), ...rightPad];
 };

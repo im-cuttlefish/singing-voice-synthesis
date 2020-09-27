@@ -17,16 +17,6 @@ export const OLA = ({ pieces, pieceTable }: OLARules): SignalSegment => {
     const location = prevIndex + locatedDelta;
     const piece = pieces[pieceIndex];
 
-    if (Number.isInteger(location)) {
-      for (let k = 0; k < piece.length; k++) {
-        segment[location + k] ??= 0;
-        segment[location + k] += piece[k];
-      }
-
-      prevIndex = location;
-      continue;
-    }
-
     const intergral = Math.floor(location);
     const fractional = location - intergral;
     const points: Point[] = [];

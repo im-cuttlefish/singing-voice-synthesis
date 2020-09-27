@@ -24,6 +24,14 @@ export const prod = ([x, y]: Complex, [u, v]: Complex): Complex => {
   return [x * u - y * v, x * v + u * y];
 };
 
+export const add = ([x, y]: Complex, [u, v]: Complex): Complex => {
+  return [x + u, y + v];
+};
+
+export const sub = ([x, y]: Complex, [u, v]: Complex): Complex => {
+  return [x - u, y - v];
+};
+
 export const div = ([x, y]: Complex, [u, v]: Complex): Complex => {
   const A = abs([u, v]);
   return [(x * u + y * v) / A, (y * u - x * v) / A];

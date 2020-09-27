@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { getSpeechElements } from "./speechElements";
 import { getAudioData } from "./audio/getAudioDataFromFile";
-import attributes from "./attributes.json";
+import attributes from "./attributes2.json";
 import { createWaveFile } from "./audio/createWaveFile";
 import { transform } from "./synthesis-engine/transform";
 // import { createSongSynthesizer } from "./synthesis-engine/createSongSynthesizer";
@@ -9,6 +9,9 @@ import { Corpus, Score } from "./synthesis-engine/types";
 import { MonoralAudioData } from "./audio/types";
 import temparament from "./temperament.json";
 import { createLinearInterpolator } from "./calculation/interpolation/createLinearInterpolator";
+import { createCubicSpline } from "./calculation/interpolation/createCubicSpline";
+import { Point } from "./calculation/utils/types";
+import { getAttributes } from "./synthesis-engine/attributes/getAttributes";
 
 const app = document.getElementById("app")!;
 const button = document.getElementById("button")!;
@@ -117,7 +120,7 @@ const song: Score = [
 
 (async () => {
   const elementsMap = await getSpeechElements();
-  const audioData = await getAudioData(elementsMap.get("で")!);
+  const audioData = await getAudioData(elementsMap.get("が")!);
 
   if (audioData.type !== "monoral") {
     return;
@@ -125,6 +128,7 @@ const song: Score = [
 
   const { sampleRate } = attributes.で;
 
+  /*\
   const corpus: Corpus = {
     sampleRate: 44100,
     phonemes: {},
@@ -134,28 +138,38 @@ const song: Score = [
     const audioData = <MonoralAudioData>await getAudioData(blob);
     corpus.phonemes[key] = { audioData, attributes: attributes[key] };
   }
+  \*/
 
   // const songSynthesizer = createSongSynthesizer(corpus);
 
   // const merged = songSynthesizer(song);
 
-  const interpolator = createLinearInterpolator([
+  const sample: Point[] = [
     [1, 2],
     [3, 10],
     [4, -5],
     [7, 3],
-  ]);
+  ];
+
+  const interpolator = createCubicSpline(sample);
 
   for (let i = 0; i < 800; i++) {
-    const y = 100 - 5 * interpolator(i / 100);
+    const y = 5 * interpolator(i / 100) + 100;
     console.log(interpolator(i / 100));
     ctx.fillRect(i, 200 - y, 1, y);
   }
 
+  for (const [x, y] of sample) {
+    ctx.beginPath();
+    ctx.fillStyle = "red";
+    ctx.arc(x * 100, 200 - (5 * y + 100), 4, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+
   const merged = transform({
-    F0Transition: (t) => 400 + 10 * Math.sin(10 * Math.PI * t),
-    duration: 20,
-    attributes: attributes.で,
+    F0Transition: (t) => 350,
+    duration: 10,
+    attributes: attributes.が,
     audioData: audioData,
   });
 
