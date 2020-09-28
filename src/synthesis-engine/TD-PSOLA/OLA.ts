@@ -1,6 +1,4 @@
-import { createCubicSpline } from "@/calculation/interpolation/createCubicSpline";
 import { SignalSegment } from "@/calculation/signal-processing/types";
-import { Point } from "@/calculation/utils/types";
 import { Piece, PieceTable } from "./types";
 
 interface OLARules {
@@ -15,21 +13,12 @@ export const OLA = ({ pieces, pieceTable }: OLARules): SignalSegment => {
   for (let i = 0; i < pieceTable.length; i++) {
     const [pieceIndex, locatedDelta] = pieceTable[i];
     const location = prevIndex + locatedDelta;
-    const piece = pieces[pieceIndex];
-
     const intergral = Math.floor(location);
-    const fractional = location - intergral;
-    const points: Point[] = [];
-
-    for (let i = 0; i < piece.length; i++) {
-      points[i] = [i, piece[i]];
-    }
-
-    const interpolator = createCubicSpline(points);
+    const piece = pieces[pieceIndex];
 
     for (let i = 0; i < piece.length; i++) {
       segment[intergral + i] ??= 0;
-      segment[intergral + i] += interpolator(fractional + i);
+      segment[intergral + i] += piece[i];
     }
 
     prevIndex = location;

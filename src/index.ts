@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { getSpeechElements } from "./speechElements";
 import { getAudioData } from "./audio/getAudioDataFromFile";
-import attributes from "./attributes2.json";
+import attributes from "./attributes.json";
 import { createWaveFile } from "./audio/createWaveFile";
 import { transform } from "./synthesis-engine/transform";
 // import { createSongSynthesizer } from "./synthesis-engine/createSongSynthesizer";

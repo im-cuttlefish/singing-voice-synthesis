@@ -15,22 +15,24 @@ export const TD_PSOLA = (
   corpusItem: CorpusItem,
   { F0Transition, duration }: Transform
 ) => {
-  const CSize = Math.floor(COccupancy * corpusItem.pitchMark.length);
-
   const meta = getCorpusMetadata(corpusItem);
+  const CSize = Math.floor(COccupancy * corpusItem.pitchMark.length);
+  const VDuration = (1 - COccupancy) * meta.duration;
+
   const CMeta = { ...meta, duration: COccupancy * meta.duration };
-  const VMeta = { ...meta, duration: (1 - COccupancy) * meta.duration };
+  const VMeta = { ...meta, duration: VDuration };
 
   const pieceTable = createPieceTable(corpusItem.pitchMark);
   const CTable = pieceTable.slice(0, CSize);
   const VTable = pieceTable.slice(CSize);
 
   const maxF0 = getMaxF0(meta, pieceTable, F0Transition);
-  const shiftPitch = createPitchShifter(F0Transition);
+  const shiftCPitch = createPitchShifter(F0Transition);
+  const shiftVPitch = createPitchShifter((t) => F0Transition(t + VDuration));
   const stretchTime = createTimeStretcher(duration * (maxF0 / corpusItem.F0));
 
-  const editedCTable = shiftPitch(CTable, CMeta);
-  const editedVTable = shiftPitch(stretchTime(VTable, VMeta), VMeta);
+  const editedCTable = shiftCPitch(CTable, CMeta);
+  const editedVTable = shiftVPitch(stretchTime(VTable, VMeta), VMeta);
   const mergedTable = [...editedCTable, ...editedVTable];
 
   const pieces = createPieces(corpusItem);

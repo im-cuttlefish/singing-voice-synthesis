@@ -1,32 +1,43 @@
+import { indexOf } from "*.png";
 import { prod, cis, add, sub } from "../utils/complex";
 import { SignalSegment, Frequency } from "./types";
 
-export const FFT = (vector: SignalSegment): Frequency => {
-  const X = [];
-  const N = vector.length;
+export const FFT = (fn: SignalSegment): Frequency => {
+  const frequency: Frequency = [];
+  const digits = get2radixDigits(fn.length);
 
-  if (N == 1) {
-    return [[vector[0], 0]];
+  for (let i = 0; i < fn.length; i++) {
+    const operation: ("even" | "odd")[] = [];
+    let k = i;
+
+    for (let j = 0; j < digits; j++) {
+      if (isEven(k)) {
+        operation.push("even");
+        k /= 2;
+      } else {
+        operation.push("odd");
+        k = (k - 1) / 2;
+      }
+    }
+
+    for (let j = 0; j < digits; j++) {
+      null;
+    }
   }
 
-  const X_evens = FFT(vector.filter(even));
-  const X_odds = FFT(vector.filter(odd));
+  return frequency;
+};
 
-  for (let k = 0; k < N / 2; k++) {
-    const t = X_evens[k];
-    const e = prod(cis(2 * Math.PI + k / N), X_odds[k]);
+const isEven = (x: number) => (x & 1) === 0;
 
-    X[k] = add(t, e);
-    X[k + N / 2] = sub(t, e);
+const get2radixDigits = (x: number) => {
+  let y = x;
+
+  for (let i = 0; ; i++) {
+    if (y === 1) {
+      return i;
+    }
+
+    y /= 2;
   }
-
-  function even(_, ix: number) {
-    return ix % 2 == 0;
-  }
-
-  function odd(_, ix: number) {
-    return ix % 2 == 1;
-  }
-
-  return X;
 };
