@@ -1,8 +1,8 @@
 import { createBinarySearch } from "../utils/createBinarySearch";
-import { Point } from "../utils/types";
-import { Interpolator } from "./types";
+import type { Point } from "../utils/types";
+import type { Interpolator } from "./types";
 
-export const createLinearInterpolator: Interpolator = (points: Point[]) => {
+export const createLinearInterpolator: Interpolator = (points) => {
   return (x: number) => {
     const binarySearch = createBinarySearch((y: Point) => y[0] >= x);
     let i = binarySearch(points) - 1;

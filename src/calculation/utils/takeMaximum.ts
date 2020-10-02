@@ -1,5 +1,5 @@
 import { isPoints } from "./isPoints";
-import { Point } from "./types";
+import type { Point } from "./types";
 
 export const takeMaximum = (fn: number[] | Point[]): Point => {
   if (isPoints(fn)) {

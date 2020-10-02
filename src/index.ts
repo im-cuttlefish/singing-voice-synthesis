@@ -12,6 +12,7 @@ import { createLinearInterpolator } from "./calculation/interpolation/createLine
 import { createCubicSpline } from "./calculation/interpolation/createCubicSpline";
 import { Point } from "./calculation/utils/types";
 import { getAttributes } from "./synthesis-engine/attributes/getAttributes";
+import { CatmullRomSpline } from "./calculation/interpolation/createCatmullRomSpline";
 
 const app = document.getElementById("app")!;
 const button = document.getElementById("button")!;
@@ -24,7 +25,7 @@ app.appendChild(link);
 
 const cvs = document.createElement("canvas");
 cvs.width = 800;
-cvs.height = 200;
+cvs.height = 800;
 
 const ctx = cvs.getContext("2d")!;
 app.appendChild(cvs);
@@ -145,29 +146,33 @@ const song: Score = [
   // const merged = songSynthesizer(song);
 
   const sample: Point[] = [
-    [1, 2],
-    [3, 10],
-    [4, -5],
-    [7, 3],
+    [1, 340],
+    [2, 500],
+    [4, 340],
+    [6, 360],
+    [7, 400],
   ];
 
-  const interpolator = createCubicSpline(sample);
+  const interpolator = new CatmullRomSpline(sample);
+  interpolator.add([3, 200]);
+  // interpolator.remove(0);
+  // interpolator.replace(1, [2.5, 200]);
+  const bib = (t: number) => 350 + 10 * Math.sin(10 * Math.PI * t);
 
   for (let i = 0; i < 800; i++) {
-    const y = 5 * interpolator(i / 100) + 100;
-    console.log(interpolator(i / 100));
-    ctx.fillRect(i, 200 - y, 1, y);
+    const y = interpolator.interpolate(i / 100);
+    ctx.fillRect(i, 800 - y, 1, y);
   }
 
   for (const [x, y] of sample) {
     ctx.beginPath();
     ctx.fillStyle = "red";
-    ctx.arc(x * 100, 200 - (5 * y + 100), 4, 0, 2 * Math.PI);
+    ctx.arc(x * 100, 800 - y, 4, 0, 2 * Math.PI);
     ctx.fill();
   }
 
   const merged = transform({
-    F0Transition: (t) => 350,
+    F0Transition: bib,
     duration: 10,
     attributes: attributes.が,
     audioData: audioData,

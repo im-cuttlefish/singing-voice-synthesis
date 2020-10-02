@@ -1,4 +1,4 @@
-import { WindowFunction } from "./types";
+import type { WindowFunction } from "./types";
 
 export const hannWindow: WindowFunction = (width) => {
   return (x) => {

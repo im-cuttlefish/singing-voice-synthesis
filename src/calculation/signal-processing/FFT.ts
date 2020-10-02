@@ -1,6 +1,4 @@
-import { indexOf } from "*.png";
-import { prod, cis, add, sub } from "../utils/complex";
-import { SignalSegment, Frequency } from "./types";
+import type { SignalSegment, Frequency } from "./types";
 
 export const FFT = (fn: SignalSegment): Frequency => {
   const frequency: Frequency = [];

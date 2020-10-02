@@ -1,4 +1,4 @@
-import { Point } from "../utils/types";
+import type { Point } from "../utils/types";
 
 export const OLS = (points: Point[]): [number, number] => {
   const N = points.length;

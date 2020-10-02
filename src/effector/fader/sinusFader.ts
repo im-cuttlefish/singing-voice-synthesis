@@ -1,4 +1,4 @@
-import { FadeFunction } from "./types";
+import type { FadeFunction } from "./types";
 
 export const sinusFader: FadeFunction = (duration: number) => {
   return (x: number) => {

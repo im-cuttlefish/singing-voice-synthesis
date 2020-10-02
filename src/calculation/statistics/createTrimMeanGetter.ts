@@ -1,6 +1,6 @@
 import { isPoints } from "../utils/isPoints";
-import { Point } from "../utils/types";
 import { getMean } from "./getMean";
+import type { Point } from "../utils/types";
 
 export const createTrimMeanGetter = (ratio: number) => {
   return (fn: number[] | Point[]) => {

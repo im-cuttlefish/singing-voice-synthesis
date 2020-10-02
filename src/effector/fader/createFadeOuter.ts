@@ -1,4 +1,4 @@
-import { Fader, FaderRules } from "./types";
+import type { Fader, FaderRules } from "./types";
 
 export const createFadeOuter = ({ fader, duration }: FaderRules): Fader => {
   return function* () {

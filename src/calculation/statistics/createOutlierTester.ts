@@ -1,6 +1,6 @@
 import { getMean } from "./getMean";
-import { Point } from "../utils/types";
 import { getVariance } from "./getVariance";
+import type { Point } from "../utils/types";
 
 export const createOutlierTester = (level: number) => {
   return (fn: number[]) => {

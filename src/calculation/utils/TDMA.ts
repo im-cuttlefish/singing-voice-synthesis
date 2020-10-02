@@ -1,4 +1,4 @@
-import { TDMatrix } from "./types";
+import type { TDMatrix } from "./types";
 
 export const TDMA = (coefficient: TDMatrix, right: number[]) => {
   const N = coefficient.length;

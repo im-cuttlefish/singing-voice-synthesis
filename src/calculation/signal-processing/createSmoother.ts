@@ -1,4 +1,4 @@
-import { SignalSegment } from "./types";
+import type { SignalSegment } from "./types";
 
 export const createSmoother = (level: number) => {
   return (fn: SignalSegment): SignalSegment => {

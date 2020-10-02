@@ -1,5 +1,5 @@
-import { SignalSegment } from "../signal-processing/types";
-import { Walker, WalkerSpec } from "./types";
+import type { SignalSegment } from "../signal-processing/types";
+import type { Walker, WalkerSpec } from "./types";
 
 export const createWalker = (spec: WalkerSpec): Walker => {
   const { size, frameShift } = spec;

@@ -29,7 +29,9 @@ export const TD_PSOLA = (
   const maxF0 = getMaxF0(meta, pieceTable, F0Transition);
   const shiftCPitch = createPitchShifter(F0Transition);
   const shiftVPitch = createPitchShifter((t) => F0Transition(t + VDuration));
-  const stretchTime = createTimeStretcher(duration * (maxF0 / corpusItem.F0));
+  const stretchTime = createTimeStretcher(
+    duration * (maxF0 / corpusItem.F0) + margin
+  );
 
   const editedCTable = shiftCPitch(CTable, CMeta);
   const editedVTable = shiftVPitch(stretchTime(VTable, VMeta), VMeta);
@@ -62,3 +64,4 @@ const getMaxF0 = (
 };
 
 const COccupancy = 0.3;
+const margin = 0.5;

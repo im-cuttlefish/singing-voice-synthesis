@@ -1,4 +1,4 @@
-import { Crossfader, FaderRules } from "./types";
+import type { Crossfader, FaderRules } from "./types";
 
 export const createCrossfader = ({
   fader,

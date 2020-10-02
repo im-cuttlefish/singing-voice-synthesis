@@ -1,6 +1,6 @@
 import { DFT } from "./DFT";
-import { STFTAnalyzer, SignalSegment } from "./types";
-import { WindowFunction, Walker } from "../window/types";
+import type { STFTAnalyzer, SignalSegment } from "./types";
+import type { WindowFunction, Walker } from "../window/types";
 
 interface STFTRules {
   walker: Walker;

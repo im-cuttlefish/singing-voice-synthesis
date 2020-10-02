@@ -1,4 +1,4 @@
-import { Point } from "./types";
+import type { Point } from "./types";
 
 export const isPoints = (fn: number[] | Point[]): fn is Point[] => {
   return Array.isArray(fn[0]);

@@ -1,4 +1,4 @@
-import { WindowFunction } from "./types";
+import type { WindowFunction } from "./types";
 
 export const nuttallWindow: WindowFunction = (width) => {
   const cos = (x: number) => Math.cos(2 * Math.PI * (x / width));

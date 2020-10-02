@@ -1,4 +1,4 @@
-import { Complex } from "./types";
+import type { Complex } from "./types";
 
 export const cis = (theta: number): Complex => {
   return [Math.cos(theta), Math.sin(theta)];

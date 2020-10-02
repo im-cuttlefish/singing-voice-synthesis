@@ -1,8 +1,8 @@
 import { IDFT } from "./IDFT";
-import { SignalSegment } from "../signal-processing/types";
-import { ISTFTAnalyzer } from "./types";
-import { WindowFunction, Walker } from "../window/types";
 import { toComplex, prod } from "../utils/complex";
+import type { SignalSegment } from "../signal-processing/types";
+import type { ISTFTAnalyzer } from "./types";
+import type { WindowFunction, Walker } from "../window/types";
 
 interface ISTFTRules {
   walker: Walker;
