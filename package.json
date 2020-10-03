@@ -45,10 +45,6 @@
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.4.0",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "@reduxjs/toolkit": "^1.4.0"
   }
 }
